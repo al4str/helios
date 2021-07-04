@@ -23,7 +23,8 @@
     "start": "npm run build && npm run serve",
     "eslint": "npx eslint --ext .js src build",
     "stylelint": "npx stylelint --syntax scss src/**/*.scss",
-    "lint": "npm run eslint && npm run stylelint"
+    "lint": "npm run eslint && npm run stylelint",
+    "bump": "npm --no-git-tag-version version patch"
   },
   "type": "module",
   "dependencies": {
