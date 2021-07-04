@@ -1,6 +1,7 @@
 /dist
 /temp
 /node_modules
+/build/ssl
 .env
 .idea
 .vscode

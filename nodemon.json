@@ -1,0 +1,13 @@
+{
+  "signal": "SIGHUP",
+  "watch": [
+    ".env",
+    ".eslintrc",
+    ".eslintignore",
+    ".stylelintrc",
+    ".stylelintignore",
+    ".browserslistrc",
+    "build"
+  ],
+  "exec": "NODE_ENV=development BROWSERSLIST_ENV=modern node build/bin/development.js"
+}

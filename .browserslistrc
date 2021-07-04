@@ -1,0 +1,8 @@
+[modern]
+supports es6-module and not iOS < 11 and not Safari < 11 and not Edge <= 79
+
+[legacy]
+defaults
+iOS < 11
+Safari < 11
+Edge <= 79
