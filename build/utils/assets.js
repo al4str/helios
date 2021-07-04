@@ -96,13 +96,18 @@ export function assetsGetChunkGroups(stats) {
 
 /**
  * @param {BuildChunkGroups} chunkGroups
- * @return {Array<string>}
+ * @return {{
+ *   mainGroup: Array<string>
+ *   restGroups: Record<string, <Array<string>>
+ * }}
  * */
-export function assetsGetMainChunkGroup(chunkGroups) {
-  if (MAIN_CHUNK_GROUP in chunkGroups) {
-    return chunkGroups[MAIN_CHUNK_GROUP];
-  }
-  return [];
+export function assetsSplitChunkGroups(chunkGroups) {
+  const { [MAIN_CHUNK_GROUP]: mainGroup, ...restGroups } = chunkGroups;
+
+  return {
+    mainGroup: mainGroup || [],
+    restGroups: restGroups || {},
+  };
 }
 
 /**

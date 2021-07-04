@@ -36,9 +36,9 @@ export const SSL_CERT = path.join(ROOT_DIR, 'build', 'ssl', 'fullchain.pem');
 /** @type {Array<BuildMetaItem>} */
 export const META_ITEMS = [];
 
-export const ASSETS_VAR_NAME = '__ASSETS_MAP__';
+export const INJECTABLE_KEY_ASSETS = '__INJECTABLE_ASSETS__';
 
-export const ROUTES_CHUNKS_VAR_NAME = '__ROUTES_CHUNKS_MAP__';
+export const INJECTABLE_KEY_CHUNKS = '__INJECTABLE_CHUNKS__';
 
 export const PUBLIC_PATH = '/';
 

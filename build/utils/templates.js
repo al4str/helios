@@ -3,8 +3,8 @@ import path from 'path';
 import {
   ROOT_DIR,
   META_ITEMS,
-  ASSETS_VAR_NAME,
-  ROUTES_CHUNKS_VAR_NAME,
+  INJECTABLE_KEY_ASSETS,
+  INJECTABLE_KEY_CHUNKS,
 } from '../constants.js';
 import {
   assetsGetStatsOutput,
@@ -12,7 +12,7 @@ import {
   assetsGetItemsMap,
   assetsGetItemURLByOriginalPath,
   assetsGetChunkGroups,
-  assetsGetMainChunkGroup,
+  assetsSplitChunkGroups,
   assetsGetScriptString,
 } from './assets.js';
 import {
@@ -63,22 +63,24 @@ function templatesGetTokens(params) {
   const statsOutput = assetsGetStatsOutput(stats);
   const itemsCopied = assetsGetItemsCopied(statsOutput);
   const chunkGroups = assetsGetChunkGroups(statsOutput);
-  const mainChunk = assetsGetMainChunkGroup(chunkGroups);
-  const mainItems = tagsGenerateItems(mainChunk);
+  const { mainGroup, restGroups } = assetsSplitChunkGroups(chunkGroups);
+  const mainItems = tagsGenerateItems(mainGroup);
   const mainItemsGrouped = tagsGetItemsGrouped(mainItems);
   const itemsMap = assetsGetItemsMap(itemsCopied);
   const itemsMeta = templatesGenerateMetaItems(itemsCopied, META_ITEMS);
   const splashIconURL = assetsGetItemURLByOriginalPath(itemsCopied, SPLASH_ICON_PATH);
-  const splashIconHintItem = tagsGetItemHint(splashIconURL, 'preload');
-  const itemsPreload = mainItemsGrouped.preload.concat([splashIconHintItem]);
+  if (splashIconURL) {
+    const splashIconHintItem = tagsGetItemHint(splashIconURL, 'preload');
+    mainItemsGrouped.preload.push(splashIconHintItem);
+  }
 
   return {
     metaTags: tagsItemsToString(itemsMeta),
     prefetchTags: tagsItemsToString(mainItemsGrouped.prefetch),
-    preloadTags: tagsItemsToString(itemsPreload),
+    preloadTags: tagsItemsToString(mainItemsGrouped.preload),
     styleTags: tagsItemsToString(mainItemsGrouped.style),
     assetsMap: itemsMap,
-    chunksMap: chunkGroups,
+    chunksMap: restGroups,
     moduleTags: tagsItemsToString(mainItemsGrouped.module),
     nomoduleTags: tagsItemsToString(mainItemsGrouped.nomodule),
     splashIconURL,
@@ -170,8 +172,8 @@ function templatesTokensMapToString(tokensMap) {
     prefetchTags: tokensMap.prefetchTags.join('\n'),
     preloadTags: tokensMap.preloadTags.join('\n'),
     styleTags: tokensMap.styleTags.join('\n'),
-    assetsMap: assetsGetScriptString(ASSETS_VAR_NAME, tokensMap.assetsMap),
-    chunksMap: assetsGetScriptString(ROUTES_CHUNKS_VAR_NAME, tokensMap.chunksMap),
+    assetsMap: assetsGetScriptString(INJECTABLE_KEY_ASSETS, tokensMap.assetsMap),
+    chunksMap: assetsGetScriptString(INJECTABLE_KEY_CHUNKS, tokensMap.chunksMap),
     moduleTags: tokensMap.moduleTags.join('\n'),
     nomoduleTags: tokensMap.nomoduleTags.join('\n'),
     splashIconURL: tokensMap.splashIconURL,
