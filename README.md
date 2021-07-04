@@ -11,11 +11,11 @@
 
 ## TODO
 ### SPA
-- [ ] Webpack
-- [ ] Stylelint & Eslint
-- [ ] React
-- [ ] separate modern/legacy builds
-- [ ] aggressive resource caching
+- [x] Webpack
+- [x] Stylelint & Eslint
+- [x] React
+- [x] separate modern/legacy builds
+- [x] aggressive resource caching
 - [ ] hashed resources map for runtime
 - [ ] auto name dynamic imports
 - [ ] auto preload `main` chunks
@@ -51,7 +51,6 @@
 - [ ] abuse jsdoc + ts types
 - [ ] React Refresh
 - [ ] Sentry error tracking
-- [ ] modular commits with proper messages
 - [ ] build & deploy with Github actions
 - [ ] finish proper README explainer
 
@@ -71,19 +70,3 @@
 - [ ] showcase sse
 - [ ] showcase websockets
 - [ ] showcase JWT authorisation
-
-
-
-```bash
-npm i \
-@sentry/browser \
-@sentry/webpack-plugin \
-intersection-observer \
-lodash.isequal \
-lodash.debounce \
-lodash.throttle \
-luxon \
-nanoid \
-whatwg-fetch
-
-```
